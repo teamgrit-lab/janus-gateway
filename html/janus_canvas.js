@@ -458,7 +458,15 @@ function Janus(gatewayCallbacks) {
 			Janus.log("Using REST API to contact Janus: " + server);
 		}
 	}
-	var iceServers = gatewayCallbacks.iceServers || [{urls: "stun:stun.l.google.com:19302"}];
+	// var iceServers = gatewayCallbacks.iceServers || [{urls: "stun:stun.l.google.com:19302"}];
+	var iceServers = [
+		{ urls: 'stun:stun.l.google.com:19302' },
+		{
+			urls: ['turn:13.209.250.18:3478?transport=udp'],
+			username: 'kurento',
+			credential: 'kurento'
+		}
+	];
 	var iceTransportPolicy = gatewayCallbacks.iceTransportPolicy;
 	var bundlePolicy = gatewayCallbacks.bundlePolicy;
 	// Whether IPv6 candidates should be gathered
@@ -1635,6 +1643,7 @@ function Janus(gatewayCallbacks) {
 		// We're now capturing the new stream: check if we're updating or if it's a new thing
 		var addTracks = false;
 		if(!config.myStream || !media.update || config.streamExternal) {
+			console.log("%cstream mixer", "font-size: 3em; color: red")
 			await StreamMixer.addMedia({
 				source: stream,
 				sourceType: 'stream',
@@ -2200,7 +2209,7 @@ function Janus(gatewayCallbacks) {
 							.then(function(stream) {
 								pluginHandle.consentDialog(false);
 								if(isAudioSendEnabled(media) && !media.keepAudio) {
-									navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+									navigator.mediaDevices.getUserMedia({ audio: true, video: {width: 1280, height: 720} })
 									.then(function (audioStream) {
 										stream.addTrack(audioStream.getAudioTracks()[0]);
 										streamsDone(handleId, jsep, media, callbacks, stream);
@@ -2230,7 +2239,7 @@ function Janus(gatewayCallbacks) {
 						navigator.mediaDevices.getUserMedia(constraints)
 							.then(function(stream) {
 								if(useAudio) {
-									navigator.mediaDevices.getUserMedia({ audio: true, video: false })
+									navigator.mediaDevices.getUserMedia({ audio: true, video: {width: 1280, height: 720} })
 									.then(function (audioStream) {
 										stream.addTrack(audioStream.getAudioTracks()[0]);
 										gsmCallback(null, stream);
@@ -2367,7 +2376,7 @@ function Janus(gatewayCallbacks) {
 
 					var gumConstraints = {
 						audio: (audioExist && !media.keepAudio) ? audioSupport : false,
-						video: (videoExist && !media.keepVideo) ? videoSupport : false
+						video: (videoExist && !media.keepVideo) ? {width: 1280, height: 720} : false
 					};
 					Janus.debug("getUserMedia constraints", gumConstraints);
 					if (!gumConstraints.audio && !gumConstraints.video) {
