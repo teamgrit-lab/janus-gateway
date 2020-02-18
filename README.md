@@ -2,10 +2,13 @@ teamgrit내에서 janus project를 자유롭게 수정하고 테스트 해볼 �
 현재는 repository내의 html을 수정후 docker로 build를 해보기 위해 fork하였습니다.
 
 1. janus docker 빌드 사용방법을 참고합니다.
+
 https://blog.remotemonster.com/janus-%EC%B4%88%EC%95%88-c11db5b59e26
 
 2. 1번 링크내의 git clone을 완료 후에 구성파일중 janus.sh의 2번쨰 라인의 url을 현재 레파지토리로 변경합니다.
+
 원본 : git clone https://github.com/meetecho/janus-gateway.git
+
 수정 : git clone https://github.com/teamgrit-lab/janus-gateway
 
 3. 1번 링크의 나머지 빌드과정 및 실행방법을 참고하여 janus 테스트를 진행합니다.
