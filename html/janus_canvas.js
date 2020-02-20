@@ -1159,7 +1159,7 @@ function Janus(gatewayCallbacks) {
 						muteVideo : function() { return mute(handleId, true, true); },
 						unmuteVideo : function() { return mute(handleId, true, false); },
 						getBitrate : function() { return getBitrate(handleId); },
-						send : function(callbacks) { sendMessage(handleId, callbacks); },
+						send : function(callbacks) { console.log(callbakcs); sendMessage(handleId, callbacks); },
 						data : function(callbacks) { sendData(handleId, callbacks); },
 						dtmf : function(callbacks) { sendDtmf(handleId, callbacks); },
 						consentDialog : callbacks.consentDialog,
@@ -1244,7 +1244,7 @@ function Janus(gatewayCallbacks) {
 						muteVideo : function() { return mute(handleId, true, true); },
 						unmuteVideo : function() { return mute(handleId, true, false); },
 						getBitrate : function() { return getBitrate(handleId); },
-						send : function(callbacks) { sendMessage(handleId, callbacks); },
+						send : function(callbacks) { console.log(callbacks); sendMessage(handleId, callbacks); },
 						data : function(callbacks) { sendData(handleId, callbacks); },
 						dtmf : function(callbacks) { sendDtmf(handleId, callbacks); },
 						consentDialog : callbacks.consentDialog,
@@ -1276,6 +1276,7 @@ function Janus(gatewayCallbacks) {
 
 	// Private method to send a message
 	function sendMessage(handleId, callbacks) {
+		console.log(handleId, callbacks)
 		callbacks = callbacks || {};
 		callbacks.success = (typeof callbacks.success == "function") ? callbacks.success : Janus.noop;
 		callbacks.error = (typeof callbacks.error == "function") ? callbacks.error : Janus.noop;
@@ -1343,6 +1344,7 @@ function Janus(gatewayCallbacks) {
 			withCredentials: withCredentials,
 			body: request,
 			success: function(json) {
+				console.log(request)
 				Janus.debug("Message sent!");
 				Janus.debug(json);
 				if(json["janus"] === "success") {
@@ -1653,10 +1655,12 @@ function Janus(gatewayCallbacks) {
 					left: 0,
 					// width: 320,
 					// height: 180,
-					width: 640,
-					height: 360,
+					// width: 640,
+					// height: 360,
 					// width: localStream.getVideoTracks()[0].getSettings().width,
 					// height: localStream.getVideoTracks()[0].getSettings().height,
+					width: 1280,
+					height: 720,
 					// chromakey: true
 				},
 				audio: {
