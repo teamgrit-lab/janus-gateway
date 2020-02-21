@@ -1645,29 +1645,32 @@ function Janus(gatewayCallbacks) {
 		// We're now capturing the new stream: check if we're updating or if it's a new thing
 		var addTracks = false;
 		if(!config.myStream || !media.update || config.streamExternal) {
-			console.log("%cstream mixer", "font-size: 3em; color: red")
-			await StreamMixer.addMedia({
-				source: stream,
-				sourceType: 'stream',
-				video: {
-					zIndex: 1,
-					top: 0,
-					left: 0,
-					// width: 320,
-					// height: 180,
-					// width: 640,
-					// height: 360,
-					// width: localStream.getVideoTracks()[0].getSettings().width,
-					// height: localStream.getVideoTracks()[0].getSettings().height,
-					width: 1280,
-					height: 720,
-					// chromakey: true
-				},
-				audio: {
-					mediaType: 'mycam'
-				}
-			})
-			config.myStream = StreamMixer.getStream();
+			if(StreamMixer.inited()) {
+				await StreamMixer.addMedia({
+					source: stream,
+					sourceType: 'stream',
+					video: {
+						zIndex: 1,
+						top: 0,
+						left: 0,
+						// width: 320,
+						// height: 180,
+						// width: 640,
+						// height: 360,
+						// width: localStream.getVideoTracks()[0].getSettings().width,
+						// height: localStream.getVideoTracks()[0].getSettings().height,
+						width: 1280,
+						height: 720,
+						// chromakey: true
+					},
+					audio: {
+						mediaType: 'mycam'
+					}
+				})
+				config.myStream = StreamMixer.getStream();
+			} else {
+				config.myStream = stream;
+			}
 			addTracks = true;
 		} else {
 			// We only need to update the existing stream
