@@ -458,15 +458,15 @@ function Janus(gatewayCallbacks) {
 			Janus.log("Using REST API to contact Janus: " + server);
 		}
 	}
-	// var iceServers = gatewayCallbacks.iceServers || [{urls: "stun:stun.l.google.com:19302"}];
-	var iceServers = [
-		{ urls: 'stun:stun.l.google.com:19302' },
-		{
-			urls: ['turn:13.209.250.18:3478?transport=udp'],
-			username: 'kurento',
-			credential: 'kurento'
-		}
-	];
+	var iceServers = gatewayCallbacks.iceServers || [{urls: "stun:stun.l.google.com:19302"}];
+	// var iceServers = [
+	// 	{ urls: 'stun:stun.l.google.com:19302' },
+	// 	{
+	// 		urls: ['turn:13.209.250.18:3478?transport=udp'],
+	// 		username: 'kurento',
+	// 		credential: 'kurento'
+	// 	}
+	// ];
 	var iceTransportPolicy = gatewayCallbacks.iceTransportPolicy;
 	var bundlePolicy = gatewayCallbacks.bundlePolicy;
 	// Whether IPv6 candidates should be gathered

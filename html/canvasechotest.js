@@ -80,6 +80,15 @@ $(document).ready(function() {
 			janus = new Janus(
 				{
 					server: server,
+					// server: "wss://sig0.cojam.tv/enter_room/websocket",
+					iceServers: [
+							{ urls: 'stun:stun.l.google.com:19302' },
+							{
+								urls: ['turn:13.209.250.18:3478?transport=udp'],
+								username: 'kurento',
+								credential: 'kurento'
+							}
+						],
 					// No "iceServers" is provided, meaning janus.js will use a default STUN server
 					// Here are some examples of how an iceServers field may look like to support TURN
 					// 		iceServers: [{urls: "turn:yourturnserver.com:3478", username: "janususer", credential: "januspwd"}],
